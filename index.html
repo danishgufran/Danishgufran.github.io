@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=1200, viewport-fit=cover" />
   <meta name="color-scheme" content="light dark" />
   <meta name="description" content="Research portfolio of Dr. Danish Gufran, Computer Scientist — AI, computer architecture, edge intelligence, and reliable indoor positioning." />
   <link rel="icon" href="data:," />
@@ -942,104 +942,6 @@
       transition: opacity .2s ease, transform .2s ease;
     }
     .toast.show { opacity: 1; transform: translateY(0); }
-
-    @media (max-width: 860px) {
-      .hero { grid-template-columns: 1fr; min-height: auto; gap: 20px; padding-top: 34px; }
-      .hero-visual { width: min(100%, 500px); justify-self: center; margin: 0 auto 18px; }
-      .portrait-frame { width: min(72%, 300px); margin: 0 auto 28px; }
-      .section-heading { display: block; }
-      .research-grid { grid-template-columns: 1fr 1fr; }
-      .research-card:nth-child(3n+1):not(:first-child) { border-left: 1px solid var(--line); padding-left: 26px; }
-      .research-card:nth-child(odd) { border-left: 0 !important; padding-left: 0 !important; }
-      .service-layout, .contact { grid-template-columns: 1fr; }
-      .timeline-head { grid-template-columns: 96px minmax(0, 1fr); align-items: center; }
-      .quote-panel { max-width: 620px; }
-      .publication-tools { align-items: center; flex-direction: column; }
-      .logo-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .research-heading-row { grid-template-columns: 1fr; gap: 28px; }
-      .research-title-copy { text-align: center; }
-      .research-page-header h1, .research-page-header p { margin-left: auto; margin-right: auto; }
-      .research-header-visuals { width: min(100%, 600px); margin: 0 auto; }
-      .explainer-card { grid-template-columns: 1fr; min-height: 0; }
-      .explainer-card:nth-child(even) .concept-figure, .explainer-card:nth-child(even) .explainer-copy { order: initial; }
-      .concept-figure { min-height: 240px; }
-    }
-
-    @media (max-width: 640px) {
-      .shell, nav { width: min(100% - 28px, 1180px); }
-      nav { min-height: 72px; padding: 8px 0; }
-      .nav-links { gap: 4px 14px; }
-      .nav-links a { font-size: 10px; white-space: nowrap; }
-      .hero { padding: 28px 0 12px; gap: 18px; }
-      .role { align-items: flex-start; line-height: 1.4; }
-      h1 { font-size: clamp(36px, 11.5vw, 54px); }
-      .hero-lede { font-size: 17px; }
-      .hero-actions .button { flex: 1 1 150px; }
-      .hero-visual { margin: 0 auto; }
-      .portrait-frame { width: min(74vw, 270px); margin: 0 auto 28px; }
-      .hero-focus-grid { grid-template-columns: 1fr 1fr; }
-      .hero-focus-card { min-height: 82px; font-size: 14px; }
-      .metrics { grid-template-columns: 1fr 1fr; }
-      .metric { border-bottom: 1px solid var(--line); }
-      .metric:nth-child(2) { border-right: 0; }
-      .metric:nth-child(3), .metric:nth-child(4) { border-bottom: 0; }
-      .metric:nth-child(3) { padding-left: 22px; }
-      section { padding: 56px 0; }
-      .research-grid { grid-template-columns: 1fr; }
-      .research-card, .research-card + .research-card, .research-card:nth-child(3n+1):not(:first-child) { border-left: 0; padding-left: 0; padding-right: 0; }
-      .card-no { margin-bottom: 26px; }
-      .paper { grid-template-columns: 54px 1fr; gap: 14px; }
-      .paper > a { grid-column: 2; justify-self: start; margin-top: 4px; }
-      .timeline { margin-left: 0; }
-      .timeline-item { grid-template-columns: 1fr; gap: 6px; }
-      .publication-tools { gap: 16px; }
-      .filters { width: 100%; }
-      .filter { flex: 1 0 18%; }
-      .pub-row { grid-template-columns: 1fr; gap: 8px; }
-      .pub-venue { grid-column: 1; }
-      .book-grid { grid-template-columns: 1fr; }
-      .award-banner-grid { grid-template-columns: 1fr; }
-      .award-banner-item { padding: 24px 0; }
-      .award-banner-item + .award-banner-item { border-left: 0; border-top: 1px solid color-mix(in srgb, var(--paper) 28%, transparent); }
-      .book-card { grid-template-columns: 128px minmax(0, 1fr); gap: 18px; padding: 20px 16px; }
-      .book-card.featured { grid-column: auto; }
-      .book-card.featured .book-cover-link { width: auto; justify-self: stretch; }
-      .book-cover { height: 210px; }
-      .patent-entry { grid-template-columns: 1fr; gap: 22px; padding: 30px 0; }
-      .patent-summary h3 { font-size: 28px; }
-      .contact { gap: 34px; }
-      .contact-actions .button { width: 100%; }
-      .footer-row { flex-direction: column; }
-      .affiliations { padding: 0 0 10px; }
-      .affiliations-label { margin-bottom: 8px; }
-      .logo-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
-      .logo-cell { height: 70px; padding: 5px 9px; }
-      .logo-cell img,
-      .logo-cell.logo-amd img,
-      .logo-cell.logo-xilinx img { height: 32px; }
-      .logo-cell.logo-epic img { height: 46px; }
-      .logo-cell.logo-nyx img { height: 56px; }
-      .contact { grid-template-columns: 1fr; gap: 34px; text-align: center; }
-      .contact h2 { text-align: center; }
-      .contact p { margin: 0 auto; }
-      .contact-actions { margin: 28px auto 0; }
-      .contact-profiles { text-align: center; }
-      .timeline-head { grid-template-columns: 82px minmax(0, 1fr); gap: 14px; }
-      .timeline-logo, .timeline-logo.wide, .timeline-logo.nyx, .timeline-wordmark { width: 76px; }
-      .award-entry-content { grid-template-columns: minmax(0, 1fr) 82px; gap: 12px; }
-      .award-trophy { width: 76px; height: 44px; }
-      .research-page-header { padding: 42px 0 30px; }
-      .research-page-header .back-link { margin-bottom: 32px; }
-      .research-header-visuals { gap: 6px; }
-      .research-header-visual { aspect-ratio: 1 / 1; }
-      .research-patent-grid { grid-template-columns: 1fr; }
-      .research-patent-card { padding: 20px; }
-      .profile-badge { width: 100%; }
-      .explainer-card { gap: 24px; padding: 40px 0; }
-      .concept-figure { min-height: 228px; padding: 16px 16px 42px; box-shadow: 6px 6px 0 var(--cool-soft); }
-      .concept-figure svg { height: 168px; }
-      .explainer-copy h2 { font-size: 25px; line-height: 1.12; }
-    }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
