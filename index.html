@@ -893,7 +893,7 @@
     .concept-figure .diagram-accent-text { fill: var(--viz-accent); font-size: 8px; font-weight: 700; }
     .concept-figure .diagram-danger-text { fill: var(--viz-red); font-size: 8px; font-weight: 700; }
 
-    /* Motion follows each schematic's information flow without moving its labels. */
+    /* Layered motion keeps the publication-style schematics active without obscuring their labels. */
     .concept-figure {
       isolation: isolate;
       transition: border-color .35s ease, box-shadow .35s ease;
@@ -924,8 +924,6 @@
     .concept-figure .diagram-box,
     .concept-figure .diagram-box-accent,
     .concept-figure .diagram-box-danger,
-    .concept-figure .diagram-accent-text,
-    .concept-figure .diagram-danger-text,
     .concept-figure .fill-cool,
     .concept-figure .diagram-node-accent:is(circle, rect),
     .concept-figure .diagram-node-accent > circle,
@@ -961,11 +959,6 @@
       animation-timing-function: ease-in-out, ease-in-out;
       animation-iteration-count: infinite, infinite;
       animation-delay: var(--stage-delay, 0s), .35s;
-    }
-    .concept-figure.is-visible .diagram-accent-text,
-    .concept-figure.is-visible .diagram-danger-text {
-      animation: label-signal 3.6s ease-in-out infinite;
-      animation-delay: var(--stage-delay, 0s);
     }
     .concept-figure.is-visible .fill-cool {
       animation: arrow-nudge var(--motion-step) ease-in-out infinite;
@@ -1038,10 +1031,6 @@
     @keyframes armor-threat {
       0%, 50%, 100% { stroke-width: 1.5; opacity: 1; }
       60%, 72% { stroke-width: 2.8; opacity: .78; }
-    }
-    @keyframes label-signal {
-      0%, 64%, 100% { opacity: .86; }
-      76% { opacity: 1; }
     }
     @keyframes arrow-nudge {
       0%, 60%, 100% { transform: translateX(0); opacity: 1; }
@@ -1120,6 +1109,11 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+      .concept-figure *,
+      .concept-figure::before {
+        animation: none !important;
+        transform: none !important;
+      }
     }
   </style>
 </head>
@@ -1344,7 +1338,7 @@
               <path class="diagram-return" d="M319 143v34H190v-24"/><path class="fill-ink" d="m186 161 4-8 4 8Z"/><text class="diagram-small" x="260" y="192" text-anchor="middle">MODEL PARAMETERS ONLY</text>
             </svg>
           </figure>
-          <div class="explainer-copy"><div class="explainer-meta"><span>2023</span><span>Privacy-preserving learning</span></div><h2>FedHIL: Heterogeneity Resilient Federated Learning for Robust Indoor Localization with Mobile Devices</h2><div class="publication-details"><span><strong>Venue</strong> · ACM Transactions on Embedded Computing Systems (TECS)</span><span><strong>Authors</strong> · Danish Gufran and Sudeep Pasricha</span></div><p>FedHIL lets phones train a shared indoor-localization model without sending their raw Wi-Fi fingerprints to a server. Its selective weight-adjustment method aggregates only the relevant model tensors, limiting the damage from extremely noisy devices while preserving useful knowledge from other clients.</p><a class="paper-source" href="https://mountainscholar.org/items/1e5672ea-1eec-46c1-bbeb-ca9e6e41dbcd/full" target="_blank" rel="noopener">Read the paper <span aria-hidden="true">↗</span></a></div>
+          <div class="explainer-copy"><div class="explainer-meta"><span>2023</span><span>Privacy-preserving learning</span></div><h2>FedHIL: Heterogeneity Resilient Federated Learning for Robust Indoor Localization with Mobile Devices</h2><div class="publication-details"><span><strong>Venue</strong> · ACM Transactions on Embedded Computing Systems (TECS)</span><span><strong>Authors</strong> · Danish Gufran and Sudeep Pasricha</span></div><p>FedHIL lets phones train a shared indoor-localization model without sending their raw Wi-Fi fingerprints to a server. Its selective weight-adjustment method aggregates only the relevant model tensors, limiting the damage from extremely noisy devices while preserving useful knowledge from other clients.</p><a class="paper-source" href="https://arxiv.org/abs/2307.01780" target="_blank" rel="noopener">Read the paper <span aria-hidden="true">↗</span></a></div>
         </article>
 
         <article class="explainer-card">
@@ -1411,7 +1405,7 @@
               <rect class="diagram-box" x="139" y="159" width="226" height="27" rx="3"/><text class="diagram-small" x="252" y="176" text-anchor="middle">SIGNAL → IMAGE → CURVE → PHYSICAL SIZE</text>
             </svg>
           </figure>
-          <div class="explainer-copy"><div class="explainer-meta"><span>2020</span><span>Ground-penetrating radar</span></div><h2>Underground Object Size Approximation using GPR Signal and Image Processing</h2><div class="publication-details"><span><strong>Venue</strong> · International Journal of Innovative Technology and Exploring Engineering (IJITEE)</span><span><strong>Authors</strong> · S. J. Savita, P. Anbazhagan, Abhay A. Kulkarni, Danish Gufran, and Andhe Pallavi</span></div><p>This work combines ground-penetrating-radar signal processing with image analysis to turn subsurface echoes into measurable features. It isolates the characteristic reflection produced by a buried object and uses its geometry to approximate the object’s size without excavation.</p></div>
+          <div class="explainer-copy"><div class="explainer-meta"><span>2020</span><span>Ground-penetrating radar</span></div><h2>Underground Object Size Approximation using GPR Signal and Image Processing</h2><div class="publication-details"><span><strong>Venue</strong> · International Journal of Innovative Technology and Exploring Engineering (IJITEE)</span><span><strong>Authors</strong> · S. J. Savita, P. Anbazhagan, Abhay A. Kulkarni, Danish Gufran, and Andhe Pallavi</span></div><p>This work combines ground-penetrating-radar signal processing with image analysis to turn subsurface echoes into measurable features. It isolates the characteristic reflection produced by a buried object and uses its geometry to approximate the object’s size without excavation.</p><a class="paper-source" href="https://www.ijitee.org/portfolio-item/g5932059720/" target="_blank" rel="noopener">Read the paper <span aria-hidden="true">↗</span></a></div>
         </article>
       </div>
     </div>
@@ -1640,7 +1634,7 @@
           <article class="pub-row" data-year="2024"><span class="pub-year">2024</span><div class="pub-title"><a href="https://arxiv.org/abs/2407.11091v1" target="_blank" rel="noopener">SENTINEL: Securing Indoor Localization Against Adversarial Attacks with Capsule Neural Networks</a></div><div class="pub-venue">IEEE TCAD</div></article>
           <article class="pub-row" data-year="2024"><span class="pub-year">2024</span><div class="pub-title"><a href="https://arxiv.org/abs/2311.06361" target="_blank" rel="noopener">CALLOC: Curriculum Adversarial Learning for Secure and Robust Indoor Localization</a></div><div class="pub-venue">ACM/IEEE DATE</div></article>
           <article class="pub-row" data-year="2023"><span class="pub-year">2023</span><div class="pub-title"><a href="https://arxiv.org/abs/2312.10312" target="_blank" rel="noopener">STELLAR: Siamese Multiheaded Attention Neural Networks for Overcoming Temporal Variations and Device Heterogeneity</a></div><div class="pub-venue">IEEE J-ISPIN</div></article>
-          <article class="pub-row" data-year="2023"><span class="pub-year">2023</span><div class="pub-title"><a href="https://mountainscholar.org/items/1e5672ea-1eec-46c1-bbeb-ca9e6e41dbcd/full" target="_blank" rel="noopener">FedHIL: Heterogeneity Resilient Federated Learning for Robust Indoor Localization</a></div><div class="pub-venue">ACM TECS</div></article>
+          <article class="pub-row" data-year="2023"><span class="pub-year">2023</span><div class="pub-title"><a href="https://arxiv.org/abs/2307.01780" target="_blank" rel="noopener">FedHIL: Heterogeneity Resilient Federated Learning for Robust Indoor Localization</a></div><div class="pub-venue">ACM TECS</div></article>
           <article class="pub-row" data-year="2023"><span class="pub-year">2023</span><div class="pub-title"><a href="https://arxiv.org/abs/2302.09443" target="_blank" rel="noopener">VITAL: Vision Transformer Neural Networks for Accurate Smartphone Heterogeneity Resilient Indoor Localization</a></div><div class="pub-venue">ACM/IEEE DAC</div></article>
           <article class="pub-row" data-year="2023"><span class="pub-year">2023</span><div class="pub-title"><a href="https://link.springer.com/chapter/10.1007/978-3-031-26712-3_14" target="_blank" rel="noopener">Smartphone Invariant Indoor Localization Using Multi-Head Attention Neural Network</a></div><div class="pub-venue">Invited book chapter · Springer Nature</div></article>
           <article class="pub-row" data-year="2023"><span class="pub-year">2023</span><div class="pub-title"><a href="https://link.springer.com/chapter/10.1007/978-3-031-26712-3_15" target="_blank" rel="noopener">Heterogeneous Device Resilient Indoor Localization Using Vision Transformer Neural Networks</a></div><div class="pub-venue">Invited book chapter · Springer Nature</div></article>
@@ -1899,7 +1893,7 @@
       }
 
       motionFigures.forEach(function (figure) {
-        var sequenceTargets = figure.querySelectorAll('.diagram-box, .diagram-box-accent, .diagram-box-danger, .diagram-accent-text, .diagram-danger-text, .fill-cool, .diagram-node-accent:is(circle, rect), .diagram-node-accent > circle, .diagram-node-accent > rect, g.diagram-muted path');
+        var sequenceTargets = figure.querySelectorAll('.diagram-box, .diagram-box-accent, .diagram-box-danger, .fill-cool, .diagram-node-accent:is(circle, rect), .diagram-node-accent > circle, .diagram-node-accent > rect, g.diagram-muted path');
         sequenceTargets.forEach(function (target, index) {
           target.style.setProperty('--stage-delay', ((index % 9) * 0.22) + 's');
         });
