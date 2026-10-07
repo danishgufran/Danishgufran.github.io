@@ -102,7 +102,8 @@
     .nav-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 24px; width: 100%; }
     .nav-links a {
       color: var(--muted);
-      font-size: 13px;
+      font-family: "Manrope", sans-serif;
+      font-size: 17px;
       font-weight: 600;
       text-decoration: none;
     }
@@ -151,6 +152,7 @@
     }
     h1 span { color: inherit; }
     #about-title { scroll-margin-top: 88px; white-space: nowrap; }
+    #about-title:focus { outline: none; }
     .hero-subtitle {
       margin: 0 0 26px;
       color: var(--cool);
@@ -167,7 +169,39 @@
       line-height: 1.55;
     }
     .hero-lede strong { color: var(--ink); font-weight: 600; }
-    .hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; }
+    .research-invite {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .research-invite-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      max-width: 236px;
+      color: var(--cool);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.35;
+      text-align: center;
+      opacity: 1;
+      transform-origin: 50% 70%;
+      animation: research-invite-wobble 3.2s ease-in-out infinite;
+    }
+    .research-invite-note svg {
+      width: 46px;
+      height: 18px;
+      flex: 0 0 auto;
+      overflow: visible;
+    }
+    .research-invite-note path {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
     .button {
       display: inline-flex;
       align-items: center;
@@ -185,6 +219,36 @@
     .button:hover, .button:focus-visible { background: var(--signal); border-color: var(--signal); color: #fff; }
     .button.secondary { background: transparent; color: var(--ink); border-color: var(--line-strong); }
     .button.secondary:hover, .button.secondary:focus-visible { border-color: var(--ink); }
+    .button.research-cta,
+    .button.research-cta:hover,
+    .button.research-cta:focus-visible {
+      border-color: transparent;
+      background: linear-gradient(115deg, #123f55, #247d84, #2f725b, #123f55);
+      background-size: 260% 260%;
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(18, 63, 85, .2);
+      transform-origin: 50% 70%;
+      animation: research-cta-shift 7s ease-in-out infinite, research-cta-wobble 5.6s ease-in-out infinite;
+    }
+    @keyframes research-cta-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    @keyframes research-cta-wobble {
+      0%, 70%, 100% { transform: rotate(0deg) translateY(0); }
+      75% { transform: rotate(-1.1deg) translateY(-1px); }
+      80% { transform: rotate(.9deg) translateY(0); }
+      85% { transform: rotate(-.55deg) translateY(-1px); }
+      90% { transform: rotate(.35deg) translateY(0); }
+    }
+    @keyframes research-invite-wobble {
+      0%, 66%, 100% { transform: rotate(0deg) translate(0, 0); }
+      72% { transform: rotate(-1.8deg) translate(-3px, -1px); }
+      78% { transform: rotate(1.6deg) translate(2px, 0); }
+      84% { transform: rotate(-1.35deg) translate(-2px, -1px); }
+      90% { transform: rotate(.9deg) translate(1px, 0); }
+      96% { transform: rotate(-.45deg) translate(0, 0); }
+    }
     .arrow { margin-left: 10px; font-size: 17px; line-height: 1; }
 
     .hero-visual {
@@ -904,20 +968,20 @@
 
     .contact {
       display: grid;
-      grid-template-columns: minmax(0, .9fr) minmax(360px, 1.1fr);
-      gap: clamp(44px, 7vw, 90px);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 44px;
       align-items: start;
-      justify-items: stretch;
+      justify-items: center;
       padding-bottom: 40px;
-      text-align: left;
+      text-align: center;
     }
-    .contact > div { width: 100%; }
-    .contact h2 { margin-bottom: 22px; font-size: clamp(46px, 7vw, 86px); text-align: left; }
-    .contact p { max-width: 600px; margin: 0; color: var(--muted); font-size: 17px; }
-    .contact-actions { display: flex; flex-direction: column; align-items: stretch; gap: 10px; max-width: 430px; margin-top: 28px; }
-    .contact-profiles { margin: 0; padding: 0; border: 0; text-align: left; }
+    .contact > div { width: 100%; justify-self: center; }
+    .contact h2 { margin: 0 auto 22px; font-size: clamp(46px, 7vw, 86px); text-align: center; }
+    .contact p { max-width: 600px; margin: 0 auto; color: var(--muted); font-size: 17px; }
+    .contact-actions { display: flex; flex-direction: column; align-items: stretch; gap: 10px; max-width: 430px; margin: 28px auto 0; }
+    .contact-profiles { max-width: 430px; margin: 0 auto; padding: 0; border: 0; text-align: center; }
     .contact-profiles h3 { margin-bottom: 14px; font-family: "Newsreader", serif; font-size: 25px; font-weight: 600; }
-    .contact-profiles .profile-badges { align-items: flex-start; }
+    .contact-profiles .profile-badges { align-items: center; }
     .contact-profiles .profile-badge { width: min(100%, 340px); }
     .email-button { cursor: pointer; font-family: "Manrope", sans-serif; }
     footer { border-top: 1px solid var(--line); padding: 28px 0 42px; }
@@ -942,6 +1006,21 @@
       transition: opacity .2s ease, transform .2s ease;
     }
     .toast.show { opacity: 1; transform: translateY(0); }
+
+    /* The site deliberately preserves its desktop composition on phones, so this
+       device-width rule compensates for the scaled canvas and keeps the prompt legible. */
+    @media (max-device-width: 600px) {
+      .research-invite-note {
+        max-width: 360px;
+        gap: 14px;
+        font-size: 30px;
+        line-height: 1.2;
+      }
+      .research-invite-note svg {
+        width: 70px;
+        height: 28px;
+      }
+    }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -1252,7 +1331,13 @@
           <p class="hero-subtitle">Computer Scientist</p>
           <p class="hero-lede"><strong>AI researcher and silicon performance optimization engineer</strong> working across AI algorithm design, AI model security, explainable AI, computer architecture, performance optimization, edge intelligence, and reliable indoor positioning. My work turns complex systems into models that can be understood, optimized, and deployed.</p>
           <div class="hero-actions">
-            <a class="button secondary" href="#research-explained">Explore the research</a>
+            <div class="research-invite">
+              <span class="research-invite-note" aria-hidden="true">
+                <span>click here for more information on my research</span>
+                <svg viewBox="0 0 48 18" aria-hidden="true" focusable="false"><path d="M1 9h43M37 2l7 7-7 7" /></svg>
+              </span>
+              <a class="button secondary research-cta" href="#research-explained">Explore the research</a>
+            </div>
             <a class="button secondary" href="#contact">Let’s connect</a>
           </div>
         </div>
