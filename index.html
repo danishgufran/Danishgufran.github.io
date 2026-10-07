@@ -893,35 +893,83 @@
     .concept-figure .diagram-accent-text { fill: var(--viz-accent); font-size: 8px; font-weight: 700; }
     .concept-figure .diagram-danger-text { fill: var(--viz-red); font-size: 8px; font-weight: 700; }
 
-    /* Motion follows the information flow inside each research schematic. */
+    /* Motion follows each schematic's information flow without moving its labels. */
+    .concept-figure {
+      isolation: isolate;
+      transition: border-color .35s ease, box-shadow .35s ease;
+    }
+    .concept-figure::before {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(105deg, transparent 20%, color-mix(in srgb, var(--viz-accent) 8%, transparent) 47%, transparent 74%);
+      transform: translateX(-115%);
+      opacity: 0;
+    }
     .concept-figure svg {
-      --motion-step: 2.8s;
+      z-index: 1;
+      --motion-step: 2.25s;
+    }
+    .concept-figure.is-visible {
+      border-color: color-mix(in srgb, var(--viz-accent) 42%, var(--line-strong));
+      box-shadow: 0 12px 30px color-mix(in srgb, var(--viz-accent) 9%, transparent);
+    }
+    .concept-figure.is-visible::before {
+      animation: figure-scan 7.2s ease-in-out infinite;
     }
     .concept-figure .diagram-flow,
     .concept-figure .diagram-return,
+    .concept-figure .diagram-box,
     .concept-figure .diagram-box-accent,
     .concept-figure .diagram-box-danger,
+    .concept-figure .diagram-accent-text,
+    .concept-figure .diagram-danger-text,
     .concept-figure .fill-cool,
     .concept-figure .diagram-node-accent:is(circle, rect),
     .concept-figure .diagram-node-accent > circle,
-    .concept-figure .diagram-node-accent > rect {
+    .concept-figure .diagram-node-accent > rect,
+    .concept-figure path.diagram-muted,
+    .concept-figure g.diagram-muted path,
+    .concept-figure g.diagram-muted line {
       animation-play-state: paused;
     }
     .concept-figure.is-visible .diagram-flow {
-      stroke-dasharray: 9 5;
-      animation: diagram-flow var(--motion-step) linear infinite;
+      stroke-dasharray: 11 6;
+      animation: diagram-flow var(--motion-step) linear infinite, flow-glow calc(var(--motion-step) * 1.8) ease-in-out infinite;
     }
     .concept-figure.is-visible .diagram-return {
-      animation: diagram-return calc(var(--motion-step) * 1.35) linear infinite;
+      stroke-dasharray: 4 5;
+      animation: diagram-return calc(var(--motion-step) * 1.25) linear infinite, return-breathe calc(var(--motion-step) * 2) ease-in-out infinite;
+    }
+    .concept-figure.is-visible .diagram-box,
+    .concept-figure.is-visible .diagram-box-accent,
+    .concept-figure.is-visible .diagram-box-danger {
+      animation: stage-highlight 5.8s ease-in-out infinite;
+      animation-delay: var(--stage-delay, 0s);
     }
     .concept-figure.is-visible .diagram-box-accent {
-      animation: diagram-focus calc(var(--motion-step) * 1.7) ease-in-out infinite;
+      --stage-stroke: var(--viz-accent);
+      --stage-shadow: color-mix(in srgb, var(--viz-accent) 45%, transparent);
     }
     .concept-figure.is-visible .diagram-box-danger {
-      animation: diagram-alert calc(var(--motion-step) * 1.25) ease-in-out infinite;
+      --stage-stroke: var(--viz-red);
+      --stage-shadow: color-mix(in srgb, var(--viz-red) 45%, transparent);
+      animation-name: stage-highlight, diagram-alert;
+      animation-duration: 5.8s, 3.4s;
+      animation-timing-function: ease-in-out, ease-in-out;
+      animation-iteration-count: infinite, infinite;
+      animation-delay: var(--stage-delay, 0s), .35s;
+    }
+    .concept-figure.is-visible .diagram-accent-text,
+    .concept-figure.is-visible .diagram-danger-text {
+      animation: label-signal 3.6s ease-in-out infinite;
+      animation-delay: var(--stage-delay, 0s);
     }
     .concept-figure.is-visible .fill-cool {
       animation: arrow-nudge var(--motion-step) ease-in-out infinite;
+      animation-delay: var(--stage-delay, 0s);
       transform-box: fill-box;
       transform-origin: center;
     }
@@ -929,41 +977,88 @@
     .concept-figure.is-visible .diagram-node-accent > circle,
     .concept-figure.is-visible .diagram-node-accent > rect {
       animation: node-signal calc(var(--motion-step) * 1.2) ease-in-out infinite;
+      animation-delay: var(--stage-delay, 0s);
       transform-box: fill-box;
       transform-origin: center;
     }
-    .concept-figure.is-visible .diagram-node-accent:nth-child(2),
-    .concept-figure.is-visible .diagram-node-accent > :nth-child(2) { animation-delay: .18s; }
-    .concept-figure.is-visible .diagram-node-accent:nth-child(3),
-    .concept-figure.is-visible .diagram-node-accent > :nth-child(3) { animation-delay: .36s; }
-    .concept-figure.is-visible .diagram-node-accent:nth-child(4),
-    .concept-figure.is-visible .diagram-node-accent > :nth-child(4) { animation-delay: .54s; }
-    .concept-figure.is-visible .diagram-node-accent:nth-child(5),
-    .concept-figure.is-visible .diagram-node-accent > :nth-child(5) { animation-delay: .72s; }
-    .concept-figure.is-visible .diagram-node-accent:nth-child(6),
-    .concept-figure.is-visible .diagram-node-accent > :nth-child(6) { animation-delay: .9s; }
+    .concept-figure.is-visible path.diagram-muted,
+    .concept-figure.is-visible g.diagram-muted path,
+    .concept-figure.is-visible g.diagram-muted line {
+      stroke-dasharray: 5 5;
+      animation: structure-trace 4.8s linear infinite;
+    }
+    .concept-figure .flow-particle {
+      fill: var(--viz-accent);
+      opacity: 0;
+      pointer-events: none;
+      filter: drop-shadow(0 0 2px color-mix(in srgb, var(--viz-accent) 70%, transparent));
+      transition: opacity .25s ease;
+    }
+    .concept-figure .flow-particle.return-particle { fill: var(--ink); }
+    .concept-figure.is-visible .flow-particle { opacity: .92; }
+    .concept-figure.patent-figure .flow-particle { filter: drop-shadow(0 0 3px color-mix(in srgb, var(--viz-accent) 75%, transparent)); }
+    .armor-figure.is-visible .diagram-box-danger {
+      animation-name: stage-highlight, armor-threat;
+      animation-duration: 5.8s, 2.8s;
+    }
+    .armor-figure.is-visible .diagram-return { animation-duration: 2.1s, 4.1s; }
+    .gate-figure.is-visible g.diagram-muted path {
+      animation: graph-connect 3.2s ease-in-out infinite;
+      animation-delay: var(--stage-delay, 0s);
+    }
 
+    @keyframes figure-scan {
+      0%, 12% { transform: translateX(-115%); opacity: 0; }
+      22% { opacity: .7; }
+      58% { opacity: .42; }
+      72%, 100% { transform: translateX(115%); opacity: 0; }
+    }
     @keyframes diagram-flow {
-      to { stroke-dashoffset: -28; }
+      to { stroke-dashoffset: -34; }
     }
     @keyframes diagram-return {
-      to { stroke-dashoffset: 24; }
+      to { stroke-dashoffset: 28; }
     }
-    @keyframes diagram-focus {
-      0%, 58%, 100% { stroke-width: 1.6; }
-      72% { stroke-width: 2.5; }
+    @keyframes flow-glow {
+      0%, 100% { opacity: .68; stroke-width: 1.55; }
+      48% { opacity: 1; stroke-width: 2.15; }
+    }
+    @keyframes return-breathe {
+      0%, 100% { opacity: .45; }
+      50% { opacity: .95; }
+    }
+    @keyframes stage-highlight {
+      0%, 54%, 100% { filter: drop-shadow(0 0 0 transparent); }
+      66%, 78% { stroke: var(--stage-stroke, var(--viz-accent)); filter: drop-shadow(0 0 3px var(--stage-shadow, color-mix(in srgb, var(--viz-accent) 34%, transparent))); }
     }
     @keyframes diagram-alert {
-      0%, 42%, 100% { stroke-width: 1.5; }
-      52%, 62% { stroke-width: 2.5; }
+      0%, 38%, 100% { stroke-width: 1.5; }
+      48%, 62% { stroke-width: 2.6; }
+    }
+    @keyframes armor-threat {
+      0%, 50%, 100% { stroke-width: 1.5; opacity: 1; }
+      60%, 72% { stroke-width: 2.8; opacity: .78; }
+    }
+    @keyframes label-signal {
+      0%, 64%, 100% { opacity: .86; }
+      76% { opacity: 1; }
     }
     @keyframes arrow-nudge {
-      0%, 68%, 100% { transform: translateX(0); opacity: 1; }
-      80% { transform: translateX(3px); opacity: .72; }
+      0%, 60%, 100% { transform: translateX(0); opacity: 1; }
+      74% { transform: translateX(3px); opacity: .72; }
+      86% { transform: translateX(1px); opacity: 1; }
     }
     @keyframes node-signal {
-      0%, 64%, 100% { transform: scale(1); opacity: 1; }
-      76% { transform: scale(1.3); opacity: .76; }
+      0%, 58%, 100% { transform: scale(1); opacity: .9; }
+      70% { transform: scale(1.34); opacity: 1; }
+      82% { transform: scale(1.08); opacity: .82; }
+    }
+    @keyframes structure-trace {
+      to { stroke-dashoffset: -20; }
+    }
+    @keyframes graph-connect {
+      0%, 100% { opacity: .35; stroke-dashoffset: 0; }
+      48% { opacity: 1; stroke-dashoffset: -18; }
     }
 
     .contact {
@@ -1082,7 +1177,7 @@
       </section>
       <div class="explainer-list">
         <article class="explainer-card">
-          <figure class="concept-figure" data-caption="Dual-AI architecture: localization, independent monitoring, and corrective feedback">
+          <figure class="concept-figure armor-figure" data-caption="Dual-AI architecture: localization, independent monitoring, and corrective feedback">
             <svg viewBox="0 0 380 210" role="img" aria-label="Professional architecture diagram showing a localization AI monitored by a guardian AI that detects attacks and sends corrections">
               <text class="diagram-small" x="18" y="22">MOBILE DEVICE</text>
               <rect class="diagram-box" x="18" y="34" width="82" height="48" rx="3"/>
@@ -1105,7 +1200,7 @@
         </article>
 
         <article class="explainer-card award-highlight">
-          <figure class="concept-figure" data-caption="Real-time edge construction lets attention follow the relationships that remain reliable">
+          <figure class="concept-figure gate-figure" data-caption="Real-time edge construction lets attention follow the relationships that remain reliable">
             <svg viewBox="0 0 380 210" role="img" aria-label="Technical flow diagram from Wi-Fi observations through real-time graph construction and graph attention to a location estimate">
               <rect class="diagram-box" x="14" y="69" width="76" height="54" rx="3"/><text class="diagram-title" x="52" y="90" text-anchor="middle">Wi-Fi scan</text><text class="diagram-label" x="52" y="105" text-anchor="middle">AP observations</text>
               <path class="diagram-flow" d="M90 96h25"/><path class="fill-cool" d="m115 91 9 5-9 5Z"/>
@@ -1434,7 +1529,7 @@
               <p>ARMOR first learns what a normal, healthy update to its central location model should look like by using a special “state-space model” (SSM). This SSM acts like a smart predictor, anticipating the next expected changes in the model’s “brain.” When a mobile device sends its updated location data, ARMOR checks if these updates match what the SSM predicted. If the updates deviate too much from the prediction, ARMOR steps in. It figures out exactly which parts of the update are problematic and adjusts them, essentially cleaning up the data before it can corrupt the main location model. This technique means only reliable and corrected information is used to improve the overall location system.</p>
               <a class="technology-link" href="https://csustrata.org/technology-transfer/available-technology/armor-secure-and-reliable-indoor-positioning/" target="_blank" rel="noopener">View CSU STRATA technology page <span aria-hidden="true">↗</span></a>
             </div>
-            <figure class="concept-figure patent-figure" data-caption="The SSM predicts a healthy update; ARMOR isolates the deviation and repairs it before aggregation.">
+            <figure class="concept-figure patent-figure armor-figure" data-caption="The SSM predicts a healthy update; ARMOR isolates the deviation and repairs it before aggregation.">
               <svg viewBox="0 0 620 190" role="img" aria-label="Animated ARMOR diagram showing healthy update history entering a state-space predictor, a deviating device update being compared with the prediction, and a corrected update reaching the global model">
                 <text class="diagram-small" x="310" y="22">LEARN NORMAL UPDATE DYNAMICS</text>
                 <rect class="diagram-box" x="14" y="48" width="96" height="68" rx="3"/>
@@ -1768,16 +1863,79 @@
       }
 
       var motionFigures = document.querySelectorAll('.concept-figure');
+      var reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var svgNamespace = 'http://www.w3.org/2000/svg';
+
+      function addFlowParticles(figure) {
+        if (reducedMotionQuery.matches || figure.getAttribute('data-particles-ready') === 'true') return;
+        var svg = figure.querySelector('svg');
+        if (!svg) return;
+        var paths = svg.querySelectorAll('path.diagram-flow, path.diagram-return');
+        paths.forEach(function (path, pathIndex) {
+          var pathData = path.getAttribute('d');
+          if (!pathData || (pathData.match(/[Mm]/g) || []).length !== 1) return;
+          var particleCount = figure.classList.contains('patent-figure') ? 2 : 1;
+          for (var particleIndex = 0; particleIndex < particleCount; particleIndex += 1) {
+            var particle = document.createElementNS(svgNamespace, 'circle');
+            var motion = document.createElementNS(svgNamespace, 'animateMotion');
+            var duration = figure.classList.contains('patent-figure') ? 2.15 : 2.65;
+            particle.setAttribute('r', figure.classList.contains('patent-figure') ? '2.7' : '2.15');
+            particle.setAttribute('class', 'flow-particle' + (path.classList.contains('diagram-return') ? ' return-particle' : ''));
+            motion.setAttribute('path', pathData);
+            motion.setAttribute('dur', duration + 's');
+            motion.setAttribute('begin', (-((particleIndex / particleCount) * duration + pathIndex * 0.17)) + 's');
+            motion.setAttribute('repeatCount', 'indefinite');
+            motion.setAttribute('calcMode', 'paced');
+            particle.appendChild(motion);
+            svg.appendChild(particle);
+          }
+        });
+        figure.setAttribute('data-particles-ready', 'true');
+      }
+
+      function removeFlowParticles(figure) {
+        figure.querySelectorAll('.flow-particle').forEach(function (particle) { particle.remove(); });
+        figure.removeAttribute('data-particles-ready');
+      }
+
+      motionFigures.forEach(function (figure) {
+        var sequenceTargets = figure.querySelectorAll('.diagram-box, .diagram-box-accent, .diagram-box-danger, .diagram-accent-text, .diagram-danger-text, .fill-cool, .diagram-node-accent:is(circle, rect), .diagram-node-accent > circle, .diagram-node-accent > rect, g.diagram-muted path');
+        sequenceTargets.forEach(function (target, index) {
+          target.style.setProperty('--stage-delay', ((index % 9) * 0.22) + 's');
+        });
+        addFlowParticles(figure);
+      });
+
+      function setFigureMotion(figure, active) {
+        figure.classList.toggle('is-visible', active && !reducedMotionQuery.matches);
+        var svg = figure.querySelector('svg');
+        if (!svg) return;
+        if (active && !reducedMotionQuery.matches && svg.unpauseAnimations) svg.unpauseAnimations();
+        if ((!active || reducedMotionQuery.matches) && svg.pauseAnimations) svg.pauseAnimations();
+      }
+
       if ('IntersectionObserver' in window) {
         var motionObserver = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
-            entry.target.classList.toggle('is-visible', entry.isIntersecting);
+            setFigureMotion(entry.target, entry.isIntersecting);
           });
         }, { rootMargin: '-8% 0px -8% 0px', threshold: 0.18 });
         motionFigures.forEach(function (figure) { motionObserver.observe(figure); });
       } else {
-        motionFigures.forEach(function (figure) { figure.classList.add('is-visible'); });
+        motionFigures.forEach(function (figure) { setFigureMotion(figure, true); });
       }
+
+      function syncMotionPreference() {
+        motionFigures.forEach(function (figure) {
+          if (reducedMotionQuery.matches) {
+            removeFlowParticles(figure);
+            setFigureMotion(figure, false);
+          } else {
+            addFlowParticles(figure);
+          }
+        });
+      }
+      if (reducedMotionQuery.addEventListener) reducedMotionQuery.addEventListener('change', syncMotionPreference);
     }());
   </script>
 </body>
