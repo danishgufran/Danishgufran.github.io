@@ -230,6 +230,16 @@
       transform-origin: 50% 70%;
       animation: research-cta-shift 7s ease-in-out infinite, research-cta-wobble 5.6s ease-in-out infinite;
     }
+    .hero-actions { width: 100%; justify-content: center; }
+    .button.research-cta-large {
+      min-height: 68px;
+      width: min(100%, 440px);
+      padding: 18px 42px;
+      font-size: 19px;
+      letter-spacing: .01em;
+      box-shadow: 0 14px 32px rgba(18, 63, 85, .28);
+    }
+    .button.research-cta-large .arrow { margin-left: 12px; font-size: 23px; }
     @keyframes research-cta-shift {
       0%, 100% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -1420,14 +1430,7 @@
           <p class="hero-subtitle">Computer Scientist</p>
           <p class="hero-lede"><strong>AI researcher and silicon performance optimization engineer</strong> working across AI algorithm design, AI model security, explainable AI, computer architecture, performance optimization, edge intelligence, and reliable indoor positioning. My work turns complex systems into models that can be understood, optimized, and deployed.</p>
           <div class="hero-actions">
-            <div class="research-invite">
-              <span class="research-invite-note" aria-hidden="true">
-                <span>click here for more information on my research</span>
-                <svg viewBox="0 0 48 18" aria-hidden="true" focusable="false"><path d="M1 9h43M37 2l7 7-7 7" /></svg>
-              </span>
-              <a class="button secondary research-cta" href="#research-explained">Explore the research</a>
-            </div>
-            <a class="button secondary" href="#contact">Let’s connect</a>
+            <a class="button research-cta research-cta-large" href="#research-explained">Explore the research<span class="arrow" aria-hidden="true">→</span></a>
           </div>
         </div>
 
@@ -1456,7 +1459,7 @@
         </div>
       </div>
       <div class="metrics" aria-label="Research impact snapshot">
-        <div class="metric"><strong>249</strong><span>Google Scholar citations</span></div>
+        <div class="metric"><strong>252</strong><span>Google Scholar citations</span></div>
         <div class="metric"><strong>7</strong><span>H-index</span></div>
         <div class="metric"><strong>7</strong><span>i10-index</span></div>
         <div class="metric"><strong>16</strong><span>peer-reviewed publications</span></div>
