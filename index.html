@@ -2109,10 +2109,18 @@
 
         bookMarquee.addEventListener('scroll', function () {
           if (marqueeHalf <= 0) return;
-          var current = bookMarquee.scrollLeft % marqueeHalf;
-          if (Math.abs(current - marqueePos) < 3) return;
+          var rawPos = bookMarquee.scrollLeft;
+          var current = rawPos % marqueeHalf;
+          if (rawPos <= marqueeHalf && Math.abs(current - marqueePos) < 3) return;
           marqueePos = current;
-          if (marqueePos <= 0) {
+          if (rawPos > marqueeHalf) {
+            /* Scrolled past the seam into the identical second copy:
+               rebase onto the same spot in the first copy — identical on
+               screen — so a swipe, wheel, or trackpad scroll never runs
+               into the physical end of the doubled track and gets stuck
+               there with the last book stranded at the edge. */
+            writeMarqueePos();
+          } else if (marqueePos <= 0) {
             /* Reached the very start: jump to the identical second copy so
                the reader can keep scrolling left as well as right. */
             marqueePos += marqueeHalf;
