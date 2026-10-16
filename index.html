@@ -2143,16 +2143,24 @@
           dragStartX = event.clientX;
           dragStartPos = marqueePos;
           dragMoved = false;
-          bookMarquee.classList.add('is-dragging');
-          if (bookMarquee.setPointerCapture) {
-            try { bookMarquee.setPointerCapture(event.pointerId); } catch (ignore) {}
-          }
+          /* Pointer capture is deliberately NOT taken on pointerdown:
+             capturing here retargets the click that ends the press to the
+             row itself, so a plain click on a book or chapter link would
+             never reach the link and every link in the row would look dead.
+             Capture is taken only once the press turns into a real drag
+             (see pointermove), where the ending click is suppressed anyway. */
         });
 
         bookMarquee.addEventListener('pointermove', function (event) {
           if (dragStartX === null) return;
           var delta = event.clientX - dragStartX;
-          if (Math.abs(delta) > 4) dragMoved = true;
+          if (!dragMoved && Math.abs(delta) > 4) {
+            dragMoved = true;
+            bookMarquee.classList.add('is-dragging');
+            if (bookMarquee.setPointerCapture) {
+              try { bookMarquee.setPointerCapture(event.pointerId); } catch (ignore) {}
+            }
+          }
           if (dragMoved) {
             marqueePos = dragStartPos - delta;
             wrapMarqueePos();
